@@ -25,6 +25,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Cormorant Garamond', serif;
+
         }
 
         .scroll-indicator {
@@ -94,11 +95,27 @@
             position: absolute;
             top: 0;
             left: 0;
+            opacity: 1;
+            /* Ensure logo is fully visible */
+            z-index: 2;
+            /* Place above static */
+        }
+
+        #staticCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            /* Lower opacity for static effect */
+            position: fixed;
+            z-index: 1;
+            /* Place behind logo */
         }
     </style>
 </head>
 
 <body class="min-h-screen flex flex-col overflow-x-hidden bg-black">
+    <canvas id="staticCanvas"></canvas>
     <div class="bg-animation"></div>
     <div class="bg-blur"></div>
 
@@ -363,6 +380,37 @@
                 }
             `
         };
+        const canvas = document.getElementById('staticCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas to full window size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function generateNoise(ctx) {
+            const width = ctx.canvas.width;
+            const height = ctx.canvas.height;
+            const imageData = ctx.createImageData(width, height);
+            const data = imageData.data;
+
+            for (let i = 0; i < data.length; i += 4) {
+                const value = Math.random() * 255;
+                data[i] = value;        // red
+                data[i + 1] = value;    // green
+                data[i + 2] = value;    // blue
+                data[i + 3] = 255;      // alpha
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        // Animate the noise generation
+        function animateStatic() {
+            generateNoise(ctx);
+            requestAnimationFrame(animateStatic);
+        }
+
+        animateStatic();
 
 
         const PixelationPass = {
@@ -431,7 +479,7 @@
         composer.setSize(initialSize.width, initialSize.height);
 
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 4);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 5);
         scene.add(ambientLight);
 
         const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
@@ -543,10 +591,10 @@
         });
 
 
-        const CAMERA_DISTANCE = 800;
+        const CAMERA_DISTANCE = 300;
         camera.position.z = CAMERA_DISTANCE;
         camera.position.y = -90; // Move camera down to shift model up
-        camera.fov = 90;
+        camera.fov = 25;
         camera.updateProjectionMatrix();
 
         // Single resize handler - remove all other resize listeners
