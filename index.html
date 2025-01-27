@@ -80,6 +80,21 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        .logo-container {
+            position: relative;
+            width: min(90vmin, 800px);
+            height: min(90vmin, 800px);
+            margin: 0 auto;
+        }
+
+        #logo-canvas {
+            width: 100% !important;
+            height: 100% !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
     </style>
 </head>
 
@@ -116,16 +131,11 @@
     <main class="flex-grow">
 
         <section id="home" class="min-h-screen relative flex items-center justify-center">
-            <div class="absolute transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-full">
-                <div class="flex items-center justify-center">
-                    <div
-                        style="width: min(800px, 90vh); height: min(800px, 90vh); position: relative; overflow: visible;">
-                        <canvas id="logo-canvas"></canvas>
-                    </div>
+            <div class="w-full px-4">
+                <div class="logo-container">
+                    <canvas id="logo-canvas"></canvas>
                 </div>
             </div>
-
-
             <div class="scroll-indicator text-white" onclick="document.getElementById('content').scrollIntoView()">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -405,18 +415,20 @@
 
 
         function getSize() {
-            const vw = window.innerWidth;
-            const vh = window.innerHeight;
-            // Use viewport height as the primary constraint
-            const size = Math.min(vh * 0.9, 800);
-            return size;
+            const vmin = Math.min(window.innerWidth, window.innerHeight);
+            const size = Math.min(vmin * 0.9, 800);
+            return {
+                width: size,
+                height: size,
+                vmin: vmin
+            };
         }
 
 
         const initialSize = getSize();
-        renderer.setSize(initialSize, initialSize);
+        renderer.setSize(initialSize.width, initialSize.height);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        composer.setSize(initialSize, initialSize);
+        composer.setSize(initialSize.width, initialSize.height);
 
 
         const ambientLight = new THREE.AmbientLight(0xffffff, 4);
@@ -510,7 +522,7 @@
             const center = box.getCenter(new THREE.Vector3());
 
 
-            const scale = 450 / Math.max(size.x, size.y); // Increased from 250 to 450
+            const scale = 360 / Math.max(size.x, size.y); // Adjusted scale
             group.scale.set(scale, scale, scale);
 
 
@@ -524,36 +536,34 @@
 
             const pivot = new THREE.Group();
             pivot.add(group);
+            pivot.position.y = 20; // Move pivot point up
             scene.add(pivot);
 
             window.logoPivot = pivot;
         });
 
 
-        const FIXED_DISTANCE = 1; // Reduced from 600
-        camera.position.z = FIXED_DISTANCE;
-        camera.fov = 45;
+        const CAMERA_DISTANCE = 800;
+        camera.position.z = CAMERA_DISTANCE;
+        camera.position.y = -90; // Move camera down to shift model up
+        camera.fov = 90;
         camera.updateProjectionMatrix();
 
-        // Update responsive handling with fixed object size
+        // Single resize handler - remove all other resize listeners
         window.addEventListener('resize', () => {
             const size = getSize();
 
-            // Update renderer and composer size
-            renderer.setSize(size, size);
-            composer.setSize(size, size);
+            renderer.setSize(size.width, size.height);
+            composer.setSize(size.width, size.height);
 
-            // Keep aspect ratio at 1 for square viewport
-            camera.aspect = 1;
-
-            // Calculate FOV to maintain object size
-            const vFov = 2 * Math.atan((size / 2) / FIXED_DISTANCE) * (180 / Math.PI);
-            camera.fov = Math.min(vFov, 45); // Limit FOV to maintain size
-
+            camera.aspect = 2;
+            const vFov = 2 * Math.atan((size.width / 2) / CAMERA_DISTANCE) * (180 / Math.PI);
+            camera.fov = Math.min(vFov, 90);
             camera.updateProjectionMatrix();
 
-            // Keep camera at fixed distance
-            camera.position.z = FIXED_DISTANCE;
+            // Keep camera position consistent
+            camera.position.z = CAMERA_DISTANCE;
+            camera.position.y = -90; // Maintain camera vertical offset
         });
 
         // Remove the baseDistance scaling
@@ -596,24 +606,6 @@
         }
 
         animate();
-
-
-        window.addEventListener('resize', () => {
-            const size = getSize();
-
-
-            renderer.setSize(size, size);
-            composer.setSize(size, size);
-
-
-            camera.aspect = 1;
-            camera.updateProjectionMatrix();
-
-
-            const baseDistance = 600;
-            const scale = size / 1200;
-            camera.position.z = baseDistance / scale;
-        });
 
 
         window.addEventListener('orientationchange', () => {
