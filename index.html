@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=no">
+    <title>Stimulus Landing Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/SVGLoader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+      *, body, html {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-30px) translateX(-50%); }
+            60% { transform: translateY(-15px) translateX(-50%); }
+        }
+
+        .content-section {
+            min-height: 80vh; 
+            padding: 4rem 2rem; 
+            position: relative;
+            z-index: 1;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .ti-cursor {
+            color: white;
+            font-weight: 300;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col overflow-x-hidden bg-black">
+    <div class="bg-animation"></div>
+    <div class="bg-blur"></div>
+
+    <nav class="w-full fixed top-0 left-0 bg-black shadow-sm z-50 zoom-independent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="hidden md:block">
+                    <ul class="flex space-x-8 text-white text-sm uppercase font-medium tracking-wide">
+                        <li><a href="#home" class="hover:text-gray-600 transition-colors">Home</a></li>
+                        <li><a href="#shop" class="hover:text-gray-600 transition-colors">Shop</a></li>
+                        <li><a href="#about" class="hover:text-gray-600 transition-colors">About</a></li>
+                        <li><a href="#contact" class="hover:text-gray-600 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+             
+                <div class="md:hidden">
+                    <button type="button" class="text-gray-500 hover:text-gray-600">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="flex-grow">
+  
+        <section id="home" class="min-h-screen relative">
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full px-4">
+                <div class="flex items-center justify-center">
+                    <div style="width: min(90vw, 800px); height: min(90vh, 800px); position: relative; overflow: visible;">
+                        <canvas id="logo-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+
+  
+            <div class="scroll-indicator text-white" onclick="document.getElementById('content').scrollIntoView()">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </section>
+
+        <section id="content" class="content-section">
+            <div class="max-w-4xl mx-auto">
+                <h2 id="stimulus-title" class="text-8xl font-bold text-white mb-8"></h2>
+                <div class="prose prose-lg prose-invert">
+                    <p class="text-gray-300 mb-6">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias, exercitationem. Nisi accusamus, pariatur maiores perspiciatis natus reprehenderit non aspernatur temporibus praesentium cumque? Dolor alias facilis possimus iste officiis iure explicabo.
+                    </p>
+                    <p class="text-gray-300 mb-6">
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <p class="text-gray-300">
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                    </p>
+                </div>
+                
+            <div class="mt-12 flex space-x-4 justify-center">
+                <a href="#shop" class="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition-colors">
+                    Shop Now
+                </a>
+                <a href="#contact" class="border border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition-colors">
+                    Contact Us
+                </a>
+            </div>
+              
+            </div>
+        <section class="mt-32">
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="text-white">
+                        <h3 class="text-3xl font-bold mb-4">Our Mission</h3>
+                        <p class="text-gray-300 mb-6">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta ratione quam nihil totam sit saepe unde, dolore perferendis temporibus pariatur, quasi dolorem laudantium rerum vitae repellat. Similique voluptatum cum hic!
+                        </p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit</li>
+                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit</li>
+                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit</li>
+                        </ul>
+                    </div>
+                    <div class="text-white">
+                        <h3 class="text-3xl font-bold mb-4">Why Choose Us</h3>
+                        <div class="space-y-4">
+                            <div class="border border-white p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">Lorem ipsum</h4>
+                                <p class="text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+                            </div>
+                            <div class="border border-white p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">Lorem ipsum</h4>
+                                <p class="text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+                            </div>
+                            <div class="border border-white p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">Lorem ipsum</h4>
+                                <p class="text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </section>
+
+       
+        <section id="shop" class="py-8 mt-0"> 
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-4xl font-bold text-white mb-8 text-center">Our Products</h2> 
+                <div class="flex overflow-x-auto space-x-6 pb-4 snap-x scrollbar-hide">
+                    
+                    <div class="flex-none w-64 snap-center">
+                        <div class="bg-black rounded-lg overflow-hidden border-white border-2">
+                            <img src="https://placehold.co/300x400" alt="Product 1" class="w-full h-64 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-white text-lg font-semibold">Product 1</h3>
+                                <p class="text-gray-400">$99.99</p>
+                            </div>
+                        </div>
+                    </div>
+    
+             
+                    <div class="flex-none w-64 snap-center">
+                        <div class="bg-black rounded-lg overflow-hidden border-white border-2">
+                            <img src="https://placehold.co/300x300" alt="Product 2" class="w-full h-64 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-white text-lg font-semibold">Product 2</h3>
+                                <p class="text-gray-400">$149.99</p>
+                            </div>
+                        </div>
+                    </div>
+    
+              
+                    <div class="flex-none w-64 snap-center">
+                        <div class="bg-black rounded-lg overflow-hidden border-white border-2">
+                            <img src="https://placehold.co/300x300" alt="Product 3" class="w-full h-64 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-white text-lg font-semibold">Product 3</h3>
+                                <p class="text-gray-400">$199.99</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    
+                    <div class="flex-none w-64 snap-center">
+                        <div class="bg-black rounded-lg overflow-hidden border-white border-2">
+                            <img src="https://placehold.co/300x300" alt="Product 4" class="w-full h-64 object-cover">
+                            <div class="p-4">
+                                <h3 class="text-white text-lg font-semibold">Product 4</h3>
+                                <p class="text-gray-400">$299.99</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-16">
+          
+        </section>
+
+        <section id="contact" class="py-16">
+         
+        </section>
+    </main>
+
+    <script>
+       
+        // Holographic foil shader
+        const foilShader = {
+            uniforms: {
+                time: { value: 0 },
+                tDiffuse: { value: null },
+                hueShift: { value: 0.0 }
+            },
+            vertexShader: `
+                varying vec2 vUv;
+                varying vec3 vNormal;
+                varying vec3 vViewPosition;
+                varying vec3 vWorldPosition;
+
+                void main() {
+                    vUv = uv;
+                    vNormal = normalize(normalMatrix * normal);
+                    vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+                    vWorldPosition = worldPosition.xyz;
+                    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                    vViewPosition = -mvPosition.xyz;
+                    gl_Position = projectionMatrix * mvPosition;
+                }
+            `,
+            fragmentShader: `
+                uniform float time;
+                uniform float hueShift;
+                varying vec2 vUv;
+                varying vec3 vNormal;
+                varying vec3 vViewPosition;
+                varying vec3 vWorldPosition;
+
+                // Improved metal colors
+                vec3 metalColor1 = vec3(0.95, 0.95, 1.0);  // Brighter base silver
+                vec3 metalColor2 = vec3(0.7, 0.7, 0.8);    // Mid silver
+                vec3 metalHighlight = vec3(1.0, 1.0, 1.0); // Pure white highlights
+                
+                // Enhanced prismatic color spectrum with brighter colors
+                vec3 prismColor(float t) {
+                    // Bolder RGB colors
+                    vec3 c1 = vec3(1.0, 0.0, 0.0);    // Pure red
+                    vec3 c2 = vec3(0.0, 1.0, 0.0);    // Pure green
+                    vec3 c3 = vec3(0.0, 0.0, 1.0);    // Pure blue
+                    vec3 c4 = vec3(1.0, 0.0, 1.0);    // Pure magenta
+                    vec3 c5 = vec3(0.0, 1.0, 1.0);    // Pure cyan
+                    vec3 c6 = vec3(1.0, 1.0, 0.0);    // Pure yellow
+                    
+                    // Slower color transitions for thicker bands
+                    float p = mod(t * 3.0, 6.0); // Reduced speed for thicker bands
+                    if(p < 1.0) return mix(c1, c2, smoothstep(0.0, 1.0, p));
+                    if(p < 2.0) return mix(c2, c3, smoothstep(0.0, 1.0, p - 1.0));
+                    if(p < 3.0) return mix(c3, c4, smoothstep(0.0, 1.0, p - 2.0));
+                    if(p < 4.0) return mix(c4, c5, smoothstep(0.0, 1.0, p - 3.0));
+                    if(p < 5.0) return mix(c5, c6, smoothstep(0.0, 1.0, p - 4.0));
+                    return mix(c6, c1, smoothstep(0.0, 1.0, p - 5.0));
+                }
+
+                void main() {
+                    vec3 normal = normalize(vNormal);
+                    vec3 viewDir = normalize(vViewPosition);
+                    
+                    float fresnel = pow(1.0 - abs(dot(normal, viewDir)), 1.5);
+                    
+                    // Larger pattern scale for thicker color bands
+                    float pattern = sin(vUv.x * 15.0 + time) * cos(vUv.y * 15.0 - time) * 0.5;
+                    pattern += sin((vUv.x + vUv.y) * 10.0 + time * 1.2) * 0.5;
+                    
+                    // Slower color transitions
+                    float prismOffset1 = pattern + time * 0.2;
+                    float prismOffset2 = pattern + time * 0.15 + 2.0;
+                    vec3 prismEffect1 = prismColor(prismOffset1);
+                    vec3 prismEffect2 = prismColor(prismOffset2);
+                    
+                    // Enhanced color mixing
+                    vec3 color = mix(prismEffect1, prismEffect2, pattern * 0.3 + 0.5);
+                    color *= (1.2 + fresnel * 0.8);
+                    
+                    // Stronger color presence
+                    color = mix(color, prismEffect1, fresnel * 0.8);
+                    color += metalHighlight * pow(fresnel, 3.0) * 0.2;
+                    
+                    gl_FragColor = vec4(color, 1.0);
+                }
+            `
+        };
+
+        
+        const PixelationPass = {
+            uniforms: {
+                "tDiffuse": { value: null },
+                "pixelSize": { value: 32.0 }
+            },
+            vertexShader: `
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform sampler2D tDiffuse;
+                uniform float pixelSize;
+                varying vec2 vUv;
+                void main() {
+                    vec2 dxy = pixelSize / vec2(1024);
+                    vec2 coord = dxy * floor(vUv / dxy);
+                    gl_FragColor = texture2D(tDiffuse, coord);
+                }
+            `
+        };
+
+       
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 2000);
+        const renderer = new THREE.WebGLRenderer({ 
+            canvas: document.getElementById('logo-canvas'),
+            antialias: true,
+            alpha: true 
+        });
+
+     
+        const composer = new THREE.EffectComposer(renderer);
+        const renderPass = new THREE.RenderPass(scene, camera);
+        composer.addPass(renderPass);
+
+        const pixelPass = new THREE.ShaderPass(PixelationPass);
+        pixelPass.renderToScreen = true;
+        composer.addPass(pixelPass);
+
+      
+        let pixelSize = 32.0;
+        const targetPixelSize = 1.0;
+        const pixelTransitionDuration = 1.0; 
+        let pixelTransitionStartTime = null;
+
+        
+        function getSize() {
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const size = Math.min(Math.min(vw * 0.9, vh * 0.9), 800);
+            return size;
+        }
+
+       
+        const initialSize = getSize();
+        renderer.setSize(initialSize, initialSize);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        composer.setSize(initialSize, initialSize);
+
+     
+        const ambientLight = new THREE.AmbientLight(0xffffff, 4); 
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+
+        const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        rimLight.position.set(-5, 0, -5);
+        scene.add(rimLight);
+
+        const pointLight = new THREE.PointLight(0xffffff, 5);
+        pointLight.position.set(0, 0, 100);
+        pointLight.distance = 10;
+        pointLight.decay = 1.2;
+        scene.add(pointLight);
+
+       
+        const svgLoader = new THREE.SVGLoader();
+        svgLoader.load('LogoSVG.svg', function(data) {
+            const paths = data.paths;
+            const group = new THREE.Group();
+            
+            paths.forEach(path => {
+                const material = new THREE.ShaderMaterial({
+                    uniforms: {
+                        time: { value: 0 },
+                        hueShift: { value: Math.random() }
+                    },
+                    vertexShader: foilShader.vertexShader,
+                    fragmentShader: `
+                        uniform float time;
+                        uniform float hueShift;
+                        varying vec2 vUv;
+                        varying vec3 vNormal;
+                        varying vec3 vViewPosition;
+
+                        vec3 prismColor(float t) {
+                            vec3 red = vec3(1.0, 0.3, 0.3);
+                            vec3 green = vec3(0.3, 1.0, 0.3);
+                            vec3 blue = vec3(0.3, 0.3, 1.0);
+                            
+                            float p = mod(t * 0.8, 3.0); 
+                            float wave = sin(time * 0.4) * cos(time * 0.3) * 0.2; 
+                            float pulse = sin(time * 0.6) * 0.15; // Gentler, slower pulse
+                            
+                            float smoothT = smoothstep(0.0, 1.0, fract(p));
+                            if(p < 1.0) return mix(red * (1.0 + pulse), green, smoothT + wave);
+                            if(p < 2.0) return mix(green * (1.0 + pulse), blue, smoothT + wave);
+                            return mix(blue * (1.0 + pulse), red, smoothT + wave);
+                        }
+
+                        void main() {
+                            vec3 normal = normalize(vNormal);
+                            vec3 viewDir = normalize(vViewPosition);
+                            float fresnel = pow(1.0 - abs(dot(normal, viewDir)), 2.0);
+                            
+                            float pattern = sin(vUv.x * 4.0 + time * 0.6) * cos(vUv.y * 4.0 - time * 0.5); // Reduced frequency
+                            vec3 metalBase = vec3(0.95 + sin(time * 0.2) * 0.05); // Subtler base variation
+                            vec3 prismEffect = prismColor(pattern * 0.3 + time * 0.3); // Slower color change
+                            
+                            vec3 color = mix(metalBase, prismEffect, fresnel * (0.8 + sin(time * 0.4) * 0.1));
+                            color += vec3(1.0) * pow(fresnel, 3.0) * 0.5; // Softer highlights
+                            
+                            gl_FragColor = vec4(color, 1.0);
+                        }
+                    `,
+                    side: THREE.DoubleSide
+                });
+
+                const shapes = path.toShapes(true);
+                shapes.forEach(shape => {
+                    const geometry = new THREE.ExtrudeGeometry(shape, {
+                        depth: 100,
+                        bevelEnabled: true,
+                        bevelThickness: 1,
+                        bevelSize: 0.5,
+                        bevelSegments: 5,
+                    });
+                    
+                    const mesh = new THREE.Mesh(geometry, material);
+                    group.add(mesh);
+                });
+            });
+
+          
+            const box = new THREE.Box3().setFromObject(group);
+            const size = box.getSize(new THREE.Vector3());
+            const center = box.getCenter(new THREE.Vector3());
+
+           
+            const scale = 250 / Math.max(size.x, size.y);
+            group.scale.set(scale, scale, scale);
+            
+         
+            group.position.x = -center.x * scale;
+            group.position.y = -center.y * scale;
+            
+            
+            group.rotation.x = Math.PI;
+            
+      
+            const pivot = new THREE.Group();
+            pivot.add(group);
+            scene.add(pivot);
+            
+            window.logoPivot = pivot;
+        });
+
+        
+        camera.position.z = 100;
+        camera.position.y = 0;
+        
+        
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const time = clock.getElapsedTime();
+            
+            
+            if (pixelTransitionStartTime === null) {
+                pixelTransitionStartTime = time;
+            }
+            
+            const transitionTime = time - pixelTransitionStartTime;
+            if (transitionTime < pixelTransitionDuration) {
+                const progress = transitionTime / pixelTransitionDuration;
+                pixelSize = 16.0 * (1.1 - progress) + targetPixelSize * progress;
+                pixelPass.uniforms.pixelSize.value = pixelSize;
+            }
+
+            scene.traverse((object) => {
+                if (object.isMesh && object.material.uniforms) {
+                    object.material.uniforms.time.value = time;
+                }
+            });
+
+         
+            pointLight.position.x = Math.sin(time * 0.5) * 50;
+            pointLight.position.y = Math.cos(time * 0.5) * 50;
+            
+      
+            if (window.logoPivot) {
+                window.logoPivot.rotation.y = time * 1;
+            }
+            
+       
+            composer.render();
+        }
+
+        animate();
+
+       
+        window.addEventListener('resize', () => {
+            const size = getSize();
+            
+         
+            renderer.setSize(size, size);
+            composer.setSize(size, size);
+            
+          
+            camera.aspect = 1;
+            camera.updateProjectionMatrix();
+            
+         
+            const baseDistance = 600;
+            const scale = size / 800;
+            camera.position.z = baseDistance / scale;
+        });
+
+       
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+        });
+        window.dispatchEvent(new Event('resize'));
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new TypeIt("#stimulus-title", {
+                strings: "Stimulus",
+                speed: 100,
+                waitUntilVisible: true,
+                cursor: true,
+                afterComplete: function(instance) {
+                    instance.destroy();
+                }
+            }).go();
+        });
+    </script>
+</body>
+</html>
