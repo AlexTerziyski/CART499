@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=no">
@@ -12,10 +13,14 @@
     <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
     <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital@0;1&display=swap"
+        rel="stylesheet">
     <style>
-      *, body, html {
+        *,
+        body,
+        html {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -33,14 +38,27 @@
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-            40% { transform: translateY(-30px) translateX(-50%); }
-            60% { transform: translateY(-15px) translateX(-50%); }
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0) translateX(-50%);
+            }
+
+            40% {
+                transform: translateY(-30px) translateX(-50%);
+            }
+
+            60% {
+                transform: translateY(-15px) translateX(-50%);
+            }
         }
 
         .content-section {
-            min-height: 80vh; 
-            padding: 4rem 2rem; 
+            min-height: 80vh;
+            padding: 4rem 2rem;
             position: relative;
             z-index: 1;
         }
@@ -53,15 +71,18 @@
             color: white;
             font-weight: 300;
         }
+
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
+
         .scrollbar-hide {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col overflow-x-hidden bg-black">
     <div class="bg-animation"></div>
     <div class="bg-blur"></div>
@@ -78,11 +99,12 @@
                     </ul>
                 </div>
 
-             
+
                 <div class="md:hidden">
                     <button type="button" class="text-gray-500 hover:text-gray-600">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
                 </div>
@@ -92,20 +114,22 @@
 
 
     <main class="flex-grow">
-  
-        <section id="home" class="min-h-screen relative">
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full px-4">
+
+        <section id="home" class="min-h-screen relative flex items-center justify-center">
+            <div class="absolute transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-full">
                 <div class="flex items-center justify-center">
-                    <div style="width: min(90vw, 800px); height: min(90vh, 800px); position: relative; overflow: visible;">
+                    <div
+                        style="width: min(800px, 90vh); height: min(800px, 90vh); position: relative; overflow: visible;">
                         <canvas id="logo-canvas"></canvas>
                     </div>
                 </div>
             </div>
 
-  
+
             <div class="scroll-indicator text-white" onclick="document.getElementById('content').scrollIntoView()">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                 </svg>
             </div>
         </section>
@@ -115,69 +139,79 @@
                 <h2 id="stimulus-title" class="text-8xl font-bold text-white mb-8"></h2>
                 <div class="prose prose-lg prose-invert">
                     <p class="text-gray-300 mb-6">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias, exercitationem. Nisi accusamus, pariatur maiores perspiciatis natus reprehenderit non aspernatur temporibus praesentium cumque? Dolor alias facilis possimus iste officiis iure explicabo.
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias, exercitationem. Nisi accusamus,
+                        pariatur maiores perspiciatis natus reprehenderit non aspernatur temporibus praesentium cumque?
+                        Dolor alias facilis possimus iste officiis iure explicabo.
                     </p>
                     <p class="text-gray-300 mb-6">
-                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                        mollit anim id est laborum.
                     </p>
                     <p class="text-gray-300">
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+                        beatae vitae dicta sunt explicabo.
                     </p>
                 </div>
-                
-            <div class="mt-12 flex space-x-4 justify-center">
-                <a href="#shop" class="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition-colors">
-                    Shop Now
-                </a>
-                <a href="#contact" class="border border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition-colors">
-                    Contact Us
-                </a>
+
+                <div class="mt-12 flex space-x-4 justify-center">
+                    <a href="#shop"
+                        class="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition-colors">
+                        Shop Now
+                    </a>
+                    <a href="#contact"
+                        class="border border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition-colors">
+                        Contact Us
+                    </a>
+                </div>
+
             </div>
-              
-            </div>
-        <section class="mt-32">
-            <div class="max-w-4xl mx-auto">
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div class="text-white">
-                        <h3 class="text-3xl font-bold mb-4">Our Mission</h3>
-                        <p class="text-gray-300 mb-6">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta ratione quam nihil totam sit saepe unde, dolore perferendis temporibus pariatur, quasi dolorem laudantium rerum vitae repellat. Similique voluptatum cum hic!
-                        </p>
-                        <ul class="list-disc list-inside text-gray-300 space-y-2">
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit</li>
-                        </ul>
-                    </div>
-                    <div class="text-white">
-                        <h3 class="text-3xl font-bold mb-4">Why Choose Us</h3>
-                        <div class="space-y-4">
-                            <div class="border border-white p-4 rounded-lg">
-                                <h4 class="font-semibold mb-2">Lorem ipsum</h4>
-                                <p class="text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-                            </div>
-                            <div class="border border-white p-4 rounded-lg">
-                                <h4 class="font-semibold mb-2">Lorem ipsum</h4>
-                                <p class="text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
-                            </div>
-                            <div class="border border-white p-4 rounded-lg">
-                                <h4 class="font-semibold mb-2">Lorem ipsum</h4>
-                                <p class="text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+            <section class="mt-32">
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div class="text-white">
+                            <h3 class="text-3xl font-bold mb-4">Our Mission</h3>
+                            <p class="text-gray-300 mb-6">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta ratione quam nihil
+                                totam sit saepe unde, dolore perferendis temporibus pariatur, quasi dolorem laudantium
+                                rerum vitae repellat. Similique voluptatum cum hic!
+                            </p>
+                            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit</li>
+                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit</li>
+                                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit</li>
+                            </ul>
+                        </div>
+                        <div class="text-white">
+                            <h3 class="text-3xl font-bold mb-4">Why Choose Us</h3>
+                            <div class="space-y-4">
+                                <div class="border border-white p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Lorem ipsum</h4>
+                                    <p class="text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+                                </div>
+                                <div class="border border-white p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Lorem ipsum</h4>
+                                    <p class="text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+                                </div>
+                                <div class="border border-white p-4 rounded-lg">
+                                    <h4 class="font-semibold mb-2">Lorem ipsum</h4>
+                                    <p class="text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
         </section>
 
-       
-        <section id="shop" class="py-8 mt-0"> 
+
+        <section id="shop" class="py-8 mt-0">
             <div class="max-w-6xl mx-auto px-4">
-                <h2 class="text-4xl font-bold text-white mb-8 text-center">Our Products</h2> 
+                <h2 class="text-4xl font-bold text-white mb-8 text-center">Our Products</h2>
                 <div class="flex overflow-x-auto space-x-6 pb-4 snap-x scrollbar-hide">
-                    
+
                     <div class="flex-none w-64 snap-center">
                         <div class="bg-black rounded-lg overflow-hidden border-white border-2">
                             <img src="https://placehold.co/300x400" alt="Product 1" class="w-full h-64 object-cover">
@@ -187,8 +221,8 @@
                             </div>
                         </div>
                     </div>
-    
-             
+
+
                     <div class="flex-none w-64 snap-center">
                         <div class="bg-black rounded-lg overflow-hidden border-white border-2">
                             <img src="https://placehold.co/300x300" alt="Product 2" class="w-full h-64 object-cover">
@@ -198,8 +232,8 @@
                             </div>
                         </div>
                     </div>
-    
-              
+
+
                     <div class="flex-none w-64 snap-center">
                         <div class="bg-black rounded-lg overflow-hidden border-white border-2">
                             <img src="https://placehold.co/300x300" alt="Product 3" class="w-full h-64 object-cover">
@@ -209,8 +243,8 @@
                             </div>
                         </div>
                     </div>
-    
-                    
+
+
                     <div class="flex-none w-64 snap-center">
                         <div class="bg-black rounded-lg overflow-hidden border-white border-2">
                             <img src="https://placehold.co/300x300" alt="Product 4" class="w-full h-64 object-cover">
@@ -225,16 +259,16 @@
         </section>
 
         <section id="about" class="py-16">
-          
+
         </section>
 
         <section id="contact" class="py-16">
-         
+
         </section>
     </main>
 
     <script>
-       
+
         // Holographic foil shader
         const foilShader = {
             uniforms: {
@@ -320,7 +354,7 @@
             `
         };
 
-        
+
         const PixelationPass = {
             uniforms: {
                 "tDiffuse": { value: null },
@@ -345,16 +379,16 @@
             `
         };
 
-       
+
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 2000);
-        const renderer = new THREE.WebGLRenderer({ 
+        const renderer = new THREE.WebGLRenderer({
             canvas: document.getElementById('logo-canvas'),
             antialias: true,
-            alpha: true 
+            alpha: true
         });
 
-     
+
         const composer = new THREE.EffectComposer(renderer);
         const renderPass = new THREE.RenderPass(scene, camera);
         composer.addPass(renderPass);
@@ -363,28 +397,29 @@
         pixelPass.renderToScreen = true;
         composer.addPass(pixelPass);
 
-      
+
         let pixelSize = 32.0;
         const targetPixelSize = 1.0;
-        const pixelTransitionDuration = 1.0; 
+        const pixelTransitionDuration = 1.0;
         let pixelTransitionStartTime = null;
 
-        
+
         function getSize() {
             const vw = window.innerWidth;
             const vh = window.innerHeight;
-            const size = Math.min(Math.min(vw * 0.9, vh * 0.9), 800);
+            // Use viewport height as the primary constraint
+            const size = Math.min(vh * 0.9, 800);
             return size;
         }
 
-       
+
         const initialSize = getSize();
         renderer.setSize(initialSize, initialSize);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         composer.setSize(initialSize, initialSize);
 
-     
-        const ambientLight = new THREE.AmbientLight(0xffffff, 4); 
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 4);
         scene.add(ambientLight);
 
         const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
@@ -401,12 +436,12 @@
         pointLight.decay = 1.2;
         scene.add(pointLight);
 
-       
+
         const svgLoader = new THREE.SVGLoader();
-        svgLoader.load('LogoSVG.svg', function(data) {
+        svgLoader.load('LogoSVG.svg', function (data) {
             const paths = data.paths;
             const group = new THREE.Group();
-            
+
             paths.forEach(path => {
                 const material = new THREE.ShaderMaterial({
                     uniforms: {
@@ -463,53 +498,77 @@
                         bevelSize: 0.5,
                         bevelSegments: 5,
                     });
-                    
+
                     const mesh = new THREE.Mesh(geometry, material);
                     group.add(mesh);
                 });
             });
 
-          
+
             const box = new THREE.Box3().setFromObject(group);
             const size = box.getSize(new THREE.Vector3());
             const center = box.getCenter(new THREE.Vector3());
 
-           
-            const scale = 250 / Math.max(size.x, size.y);
+
+            const scale = 450 / Math.max(size.x, size.y); // Increased from 250 to 450
             group.scale.set(scale, scale, scale);
-            
-         
+
+
             group.position.x = -center.x * scale;
             group.position.y = -center.y * scale;
-            
-            
+            group.position.z = 0;
+
+
             group.rotation.x = Math.PI;
-            
-      
+
+
             const pivot = new THREE.Group();
             pivot.add(group);
             scene.add(pivot);
-            
+
             window.logoPivot = pivot;
         });
 
-        
-        camera.position.z = 100;
-        camera.position.y = 0;
-        
-        
+
+        const FIXED_DISTANCE = 1; // Reduced from 600
+        camera.position.z = FIXED_DISTANCE;
+        camera.fov = 45;
+        camera.updateProjectionMatrix();
+
+        // Update responsive handling with fixed object size
+        window.addEventListener('resize', () => {
+            const size = getSize();
+
+            // Update renderer and composer size
+            renderer.setSize(size, size);
+            composer.setSize(size, size);
+
+            // Keep aspect ratio at 1 for square viewport
+            camera.aspect = 1;
+
+            // Calculate FOV to maintain object size
+            const vFov = 2 * Math.atan((size / 2) / FIXED_DISTANCE) * (180 / Math.PI);
+            camera.fov = Math.min(vFov, 45); // Limit FOV to maintain size
+
+            camera.updateProjectionMatrix();
+
+            // Keep camera at fixed distance
+            camera.position.z = FIXED_DISTANCE;
+        });
+
+        // Remove the baseDistance scaling
         const clock = new THREE.Clock();
 
         function animate() {
             requestAnimationFrame(animate);
-            
+
             const time = clock.getElapsedTime();
-            
-            
+
+
             if (pixelTransitionStartTime === null) {
                 pixelTransitionStartTime = time;
             }
-            
+
             const transitionTime = time - pixelTransitionStartTime;
             if (transitionTime < pixelTransitionDuration) {
                 const progress = transitionTime / pixelTransitionDuration;
@@ -523,40 +582,40 @@
                 }
             });
 
-         
+
             pointLight.position.x = Math.sin(time * 0.5) * 50;
             pointLight.position.y = Math.cos(time * 0.5) * 50;
-            
-      
+
+
             if (window.logoPivot) {
                 window.logoPivot.rotation.y = time * 1;
             }
-            
-       
+
+
             composer.render();
         }
 
         animate();
 
-       
+
         window.addEventListener('resize', () => {
             const size = getSize();
-            
-         
+
+
             renderer.setSize(size, size);
             composer.setSize(size, size);
-            
-          
+
+
             camera.aspect = 1;
             camera.updateProjectionMatrix();
-            
-         
+
+
             const baseDistance = 600;
-            const scale = size / 800;
+            const scale = size / 1200;
             camera.position.z = baseDistance / scale;
         });
 
-       
+
         window.addEventListener('orientationchange', () => {
             setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
         });
@@ -568,11 +627,12 @@
                 speed: 100,
                 waitUntilVisible: true,
                 cursor: true,
-                afterComplete: function(instance) {
+                afterComplete: function (instance) {
                     instance.destroy();
                 }
             }).go();
         });
     </script>
 </body>
+
 </html>
